@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Getting Started with Vue.js</title>
+    <script src="../lib/vue/vue.global.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #42b983;
+            border-bottom: 3px solid #42b983;
+            padding-bottom: 10px;
+        }
+
+        .example-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #42b983;
+        }
+
+        .example-section h3 {
+            color: #35495e;
+            margin-top: 0;
+        }
+
+        .output {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #42b983;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #35495e;
+        }
+
+        code {
+            background: #282c34;
+            color: #61dafb;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <h1>01 - Getting Started with Vue.js</h1>
+        
+        <p>
+            Vue.js is a progressive JavaScript framework for building user interfaces. 
+            Let's start with the basics: data binding and interpolation.
+        </p>
+
+        <div class="example-section">
+            <h3>Example 1: Simple Text Interpolation</h3>
+            <p>Vue uses double curly braces <code>{{ }}</code> for text interpolation:</p>
+            <div id="app1" class="output">
+                <p>{{ message }}</p>
+                <p>Hello, {{ name }}!</p>
+            </div>
+            <pre><code>&lt;div id="app1"&gt;
+  &lt;p&gt;{{ message }}&lt;/p&gt;
+  &lt;p&gt;Hello, {{ name }}!&lt;/p&gt;
+&lt;/div&gt;
+
+const app1 = Vue.createApp({
+  data() {
+    return {
+      message: 'Welcome to Vue.js!',
+      name: 'Developer'
+    }
+  }
+}).mount('#app1');</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 2: Expressions in Templates</h3>
+            <p>You can use JavaScript expressions inside the curly braces:</p>
+            <div id="app2" class="output">
+                <p>Number: {{ number }}</p>
+                <p>Double: {{ number * 2 }}</p>
+                <p>Message reversed: {{ message.split('').reverse().join('') }}</p>
+                <p>Is positive: {{ number > 0 ? 'Yes' : 'No' }}</p>
+            </div>
+            <pre><code>&lt;div id="app2"&gt;
+  &lt;p&gt;Number: {{ number }}&lt;/p&gt;
+  &lt;p&gt;Double: {{ number * 2 }}&lt;/p&gt;
+  &lt;p&gt;Message reversed: {{ message.split('').reverse().join('') }}&lt;/p&gt;
+  &lt;p&gt;Is positive: {{ number > 0 ? 'Yes' : 'No' }}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 3: Attribute Binding with v-bind</h3>
+            <p>Use <code>v-bind</code> (or shorthand <code>:</code>) to bind attributes:</p>
+            <div id="app3" class="output">
+                <img v-bind:src="imageUrl" v-bind:alt="imageAlt" style="max-width: 200px; border-radius: 10px;">
+                <p><a :href="link" target="_blank">{{ linkText }}</a></p>
+                <p v-bind:title="tooltip">Hover over me to see a tooltip!</p>
+            </div>
+            <pre><code>&lt;img v-bind:src="imageUrl" v-bind:alt="imageAlt"&gt;
+&lt;a :href="link"&gt;{{ linkText }}&lt;/a&gt;
+&lt;p v-bind:title="tooltip"&gt;Hover over me!&lt;/p&gt;</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 4: Dynamic Styling</h3>
+            <p>Bind styles and classes dynamically:</p>
+            <div id="app4" class="output">
+                <div :style="{ color: textColor, fontSize: fontSize + 'px' }">
+                    Styled text with color: {{ textColor }}
+                </div>
+                <div :style="boxStyle">
+                    Box with multiple styles
+                </div>
+            </div>
+            <pre><code>&lt;div :style="{ color: textColor, fontSize: fontSize + 'px' }"&gt;
+  Styled text
+&lt;/div&gt;
+&lt;div :style="boxStyle"&gt;
+  Box with multiple styles
+&lt;/div&gt;</code></pre>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        // Example 1: Simple Text Interpolation
+        createApp({
+            data() {
+                return {
+                    message: 'Welcome to Vue.js!',
+                    name: 'Developer'
+                }
+            }
+        }).mount('#app1');
+
+        // Example 2: Expressions in Templates
+        createApp({
+            data() {
+                return {
+                    number: 42,
+                    message: 'Vue.js'
+                }
+            }
+        }).mount('#app2');
+
+        // Example 3: Attribute Binding
+        createApp({
+            data() {
+                return {
+                    imageUrl: 'https://vuejs.org/images/logo.png',
+                    imageAlt: 'Vue.js Logo',
+                    link: 'https://vuejs.org/',
+                    linkText: 'Visit Vue.js Official Website',
+                    tooltip: 'This is a dynamic tooltip!'
+                }
+            }
+        }).mount('#app3');
+
+        // Example 4: Dynamic Styling
+        createApp({
+            data() {
+                return {
+                    textColor: '#42b983',
+                    fontSize: 20,
+                    boxStyle: {
+                        backgroundColor: '#f0f0f0',
+                        padding: '15px',
+                        borderRadius: '5px',
+                        border: '2px solid #42b983'
+                    }
+                }
+            }
+        }).mount('#app4');
+    </script>
+</body>
+</html>

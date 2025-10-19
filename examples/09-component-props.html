@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09 - Component Props</title>
+    <script src="../lib/vue/vue.global.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #42b983;
+            border-bottom: 3px solid #42b983;
+            padding-bottom: 10px;
+        }
+
+        .example-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #42b983;
+        }
+
+        .example-section h3 {
+            color: #35495e;
+            margin-top: 0;
+        }
+
+        .output {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #42b983;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #35495e;
+        }
+
+        code {
+            background: #282c34;
+            color: #61dafb;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #42b983;
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #42b983;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .product-card {
+            border: 2px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #42b983;
+            font-weight: bold;
+        }
+
+        .product-stock {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .in-stock {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .out-of-stock {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        .post {
+            border-left: 4px solid #42b983;
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+        }
+
+        .post-meta {
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <h1>09 - Component Props</h1>
+        
+        <p>
+            Props are custom attributes you can register on a component. They allow you to pass 
+            data from a parent component to a child component.
+        </p>
+
+        <div class="example-section">
+            <h3>Example 1: Basic Props</h3>
+            <p>Pass data to child components using props:</p>
+            <div id="app1" class="output">
+                <blog-post title="Introduction to Vue.js" author="John Doe"></blog-post>
+                <blog-post title="Understanding Components" author="Jane Smith"></blog-post>
+                <blog-post title="Props and Events" author="Bob Johnson"></blog-post>
+            </div>
+            <pre><code>app.component('blog-post', {
+  props: ['title', 'author'],
+  template: `
+    &lt;div class="post"&gt;
+      &lt;h4&gt;{{ title }}&lt;/h4&gt;
+      &lt;p class="post-meta"&gt;By {{ author }}&lt;/p&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 2: Props with Types</h3>
+            <p>Define prop types for validation:</p>
+            <div id="app2" class="output">
+                <user-profile 
+                    name="Alice Johnson"
+                    :age="28"
+                    email="alice@example.com">
+                </user-profile>
+                <user-profile 
+                    name="Bob Smith"
+                    :age="35"
+                    email="bob@example.com">
+                </user-profile>
+            </div>
+            <pre><code>app.component('user-profile', {
+  props: {
+    name: String,
+    age: Number,
+    email: String
+  },
+  template: `
+    &lt;div class="card user-card"&gt;
+      &lt;div class="avatar"&gt;{{ name[0] }}&lt;/div&gt;
+      &lt;div class="user-info"&gt;
+        &lt;h4&gt;{{ name }}&lt;/h4&gt;
+        &lt;p&gt;Age: {{ age }} | Email: {{ email }}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 3: Props with Default Values</h3>
+            <p>Set default values for props:</p>
+            <div id="app3" class="output">
+                <product-card 
+                    name="Laptop"
+                    :price="999.99"
+                    :in-stock="true">
+                </product-card>
+                <product-card 
+                    name="Mouse"
+                    :price="29.99"
+                    :in-stock="false">
+                </product-card>
+                <product-card 
+                    name="Keyboard">
+                </product-card>
+            </div>
+            <pre><code>app.component('product-card', {
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: Number,
+      default: 0
+    },
+    inStock: {
+      type: Boolean,
+      default: true
+    }
+  },
+  template: `
+    &lt;div class="product-card"&gt;
+      &lt;h4&gt;{{ name }}&lt;/h4&gt;
+      &lt;p class="product-price"&gt;\${{ price.toFixed(2) }}&lt;/p&gt;
+      &lt;span :class="inStock ? 'product-stock in-stock' : 'product-stock out-of-stock'"&gt;
+        {{ inStock ? 'In Stock' : 'Out of Stock' }}
+      &lt;/span&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 4: Object Props</h3>
+            <p>Pass objects as props:</p>
+            <div id="app4" class="output">
+                <article-card 
+                    v-for="article in articles" 
+                    :key="article.id"
+                    :article="article">
+                </article-card>
+            </div>
+            <pre><code>app.component('article-card', {
+  props: {
+    article: {
+      type: Object,
+      required: true
+    }
+  },
+  template: `
+    &lt;div class="card"&gt;
+      &lt;h4&gt;{{ article.title }}&lt;/h4&gt;
+      &lt;p&gt;{{ article.content }}&lt;/p&gt;
+      &lt;div&gt;
+        &lt;span v-for="tag in article.tags" 
+              :key="tag" 
+              class="badge"
+              style="background: #42b983; color: white;"&gt;
+          {{ tag }}
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p class="post-meta"&gt;Published: {{ article.date }}&lt;/p&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 5: Prop Validation</h3>
+            <p>Add custom validation to props:</p>
+            <div id="app5" class="output">
+                <rating-display :rating="4.5"></rating-display>
+                <rating-display :rating="3.0"></rating-display>
+                <rating-display :rating="5.0"></rating-display>
+            </div>
+            <pre><code>app.component('rating-display', {
+  props: {
+    rating: {
+      type: Number,
+      required: true,
+      validator(value) {
+        return value >= 0 && value <= 5;
+      }
+    }
+  },
+  computed: {
+    stars() {
+      return '⭐'.repeat(Math.floor(this.rating));
+    }
+  },
+  template: `
+    &lt;div class="card"&gt;
+      &lt;div&gt;{{ stars }}&lt;/div&gt;
+      &lt;p&gt;Rating: {{ rating }} / 5&lt;/p&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        // Example 1: Basic Props
+        const app1 = createApp({});
+        app1.component('blog-post', {
+            props: ['title', 'author'],
+            template: `
+                <div class="post">
+                    <h4>{{ title }}</h4>
+                    <p class="post-meta">By {{ author }}</p>
+                </div>
+            `
+        });
+        app1.mount('#app1');
+
+        // Example 2: Props with Types
+        const app2 = createApp({});
+        app2.component('user-profile', {
+            props: {
+                name: String,
+                age: Number,
+                email: String
+            },
+            template: `
+                <div class="card user-card">
+                    <div class="avatar">{{ name[0] }}</div>
+                    <div class="user-info">
+                        <h4>{{ name }}</h4>
+                        <p>Age: {{ age }} | Email: {{ email }}</p>
+                    </div>
+                </div>
+            `
+        });
+        app2.mount('#app2');
+
+        // Example 3: Props with Defaults
+        const app3 = createApp({});
+        app3.component('product-card', {
+            props: {
+                name: {
+                    type: String,
+                    required: true
+                },
+                price: {
+                    type: Number,
+                    default: 0
+                },
+                inStock: {
+                    type: Boolean,
+                    default: true
+                }
+            },
+            template: `
+                <div class="product-card">
+                    <h4>{{ name }}</h4>
+                    <p class="product-price">\${{ price.toFixed(2) }}</p>
+                    <span :class="inStock ? 'product-stock in-stock' : 'product-stock out-of-stock'">
+                        {{ inStock ? 'In Stock' : 'Out of Stock' }}
+                    </span>
+                </div>
+            `
+        });
+        app3.mount('#app3');
+
+        // Example 4: Object Props
+        const app4 = createApp({
+            data() {
+                return {
+                    articles: [
+                        {
+                            id: 1,
+                            title: 'Getting Started with Vue',
+                            content: 'Vue.js is a progressive framework for building user interfaces.',
+                            tags: ['Vue', 'JavaScript', 'Tutorial'],
+                            date: '2024-01-15'
+                        },
+                        {
+                            id: 2,
+                            title: 'Component Communication',
+                            content: 'Learn how components communicate through props and events.',
+                            tags: ['Components', 'Props', 'Events'],
+                            date: '2024-01-20'
+                        }
+                    ]
+                }
+            }
+        });
+        app4.component('article-card', {
+            props: {
+                article: {
+                    type: Object,
+                    required: true
+                }
+            },
+            template: `
+                <div class="card">
+                    <h4>{{ article.title }}</h4>
+                    <p>{{ article.content }}</p>
+                    <div>
+                        <span v-for="tag in article.tags" 
+                              :key="tag" 
+                              class="badge"
+                              style="background: #42b983; color: white;">
+                            {{ tag }}
+                        </span>
+                    </div>
+                    <p class="post-meta">Published: {{ article.date }}</p>
+                </div>
+            `
+        });
+        app4.mount('#app4');
+
+        // Example 5: Prop Validation
+        const app5 = createApp({});
+        app5.component('rating-display', {
+            props: {
+                rating: {
+                    type: Number,
+                    required: true,
+                    validator(value) {
+                        return value >= 0 && value <= 5;
+                    }
+                }
+            },
+            computed: {
+                stars() {
+                    return '⭐'.repeat(Math.floor(this.rating));
+                }
+            },
+            template: `
+                <div class="card">
+                    <div>{{ stars }}</div>
+                    <p>Rating: {{ rating }} / 5</p>
+                </div>
+            `
+        });
+        app5.mount('#app5');
+    </script>
+</body>
+</html>

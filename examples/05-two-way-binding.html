@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 - Two-Way Binding</title>
+    <script src="../lib/vue/vue.global.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #42b983;
+            border-bottom: 3px solid #42b983;
+            padding-bottom: 10px;
+        }
+
+        .example-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #42b983;
+        }
+
+        .example-section h3 {
+            color: #35495e;
+            margin-top: 0;
+        }
+
+        .output {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #42b983;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #35495e;
+        }
+
+        input, textarea, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        code {
+            background: #282c34;
+            color: #61dafb;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .preview {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group {
+            margin: 10px 0;
+        }
+
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <h1>05 - Two-Way Binding</h1>
+        
+        <p>
+            The <code>v-model</code> directive creates two-way data binding on form inputs, 
+            textarea, and select elements. It automatically updates the data when the user inputs something.
+        </p>
+
+        <div class="example-section">
+            <h3>Example 1: Text Input</h3>
+            <p>Bind text inputs with v-model:</p>
+            <div id="app1" class="output">
+                <label>Enter your name:</label>
+                <input v-model="name" placeholder="Type your name">
+                <div class="preview">
+                    <p><strong>Live Preview:</strong> {{ name }}</p>
+                    <p><strong>Length:</strong> {{ name.length }} characters</p>
+                </div>
+            </div>
+            <pre><code>&lt;input v-model="name" placeholder="Type your name"&gt;
+&lt;p&gt;{{ name }}&lt;/p&gt;
+
+data() {
+  return {
+    name: ''
+  }
+}</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 2: Textarea</h3>
+            <p>Two-way binding with textarea:</p>
+            <div id="app2" class="output">
+                <label>Write a message:</label>
+                <textarea v-model="message" placeholder="Type your message here..."></textarea>
+                <div class="preview">
+                    <p><strong>Message Preview:</strong></p>
+                    <p>{{ message }}</p>
+                    <p><strong>Word Count:</strong> {{ wordCount }}</p>
+                </div>
+            </div>
+            <pre><code>&lt;textarea v-model="message"&gt;&lt;/textarea&gt;
+&lt;p&gt;{{ message }}&lt;/p&gt;
+
+computed: {
+  wordCount() {
+    return this.message.trim() ? this.message.trim().split(/\s+/).length : 0;
+  }
+}</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 3: Checkboxes</h3>
+            <p>Single and multiple checkbox binding:</p>
+            <div id="app3" class="output">
+                <label>
+                    <input type="checkbox" v-model="agree">
+                    I agree to the terms and conditions
+                </label>
+                <p>Agreement status: <strong>{{ agree ? 'Agreed' : 'Not agreed' }}</strong></p>
+                
+                <hr style="margin: 20px 0;">
+                
+                <label>Select your hobbies:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" v-model="hobbies" value="Reading"> Reading</label>
+                    <label><input type="checkbox" v-model="hobbies" value="Gaming"> Gaming</label>
+                    <label><input type="checkbox" v-model="hobbies" value="Coding"> Coding</label>
+                    <label><input type="checkbox" v-model="hobbies" value="Sports"> Sports</label>
+                </div>
+                <div class="preview">
+                    <p><strong>Selected:</strong> {{ hobbies.join(', ') || 'None' }}</p>
+                </div>
+            </div>
+            <pre><code>&lt;input type="checkbox" v-model="agree"&gt;
+&lt;input type="checkbox" v-model="hobbies" value="Reading"&gt;
+&lt;input type="checkbox" v-model="hobbies" value="Gaming"&gt;
+
+data() {
+  return {
+    agree: false,
+    hobbies: []
+  }
+}</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 4: Radio Buttons</h3>
+            <p>Radio button binding:</p>
+            <div id="app4" class="output">
+                <label>Choose your favorite framework:</label>
+                <div class="checkbox-group">
+                    <label><input type="radio" v-model="framework" value="Vue"> Vue.js</label>
+                    <label><input type="radio" v-model="framework" value="React"> React</label>
+                    <label><input type="radio" v-model="framework" value="Angular"> Angular</label>
+                </div>
+                <div class="preview">
+                    <p><strong>Selected:</strong> {{ framework || 'None' }}</p>
+                </div>
+            </div>
+            <pre><code>&lt;input type="radio" v-model="framework" value="Vue"&gt;
+&lt;input type="radio" v-model="framework" value="React"&gt;
+&lt;input type="radio" v-model="framework" value="Angular"&gt;
+
+data() {
+  return {
+    framework: 'Vue'
+  }
+}</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 5: Select Dropdown</h3>
+            <p>Dropdown select binding:</p>
+            <div id="app5" class="output">
+                <label>Select your country:</label>
+                <select v-model="country">
+                    <option value="">Choose a country</option>
+                    <option value="USA">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                </select>
+                <div class="preview">
+                    <p><strong>Selected Country:</strong> {{ country || 'None' }}</p>
+                </div>
+                
+                <hr style="margin: 20px 0;">
+                
+                <label>Select multiple skills:</label>
+                <select v-model="skills" multiple style="height: 120px;">
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Vue">Vue.js</option>
+                    <option value="Node">Node.js</option>
+                </select>
+                <div class="preview">
+                    <p><strong>Selected Skills:</strong> {{ skills.join(', ') || 'None' }}</p>
+                </div>
+            </div>
+            <pre><code>&lt;select v-model="country"&gt;
+  &lt;option value="USA"&gt;United States&lt;/option&gt;
+  &lt;option value="UK"&gt;United Kingdom&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select v-model="skills" multiple&gt;
+  &lt;option value="HTML"&gt;HTML&lt;/option&gt;
+  &lt;option value="CSS"&gt;CSS&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 6: Modifiers</h3>
+            <p>v-model modifiers: <code>.lazy</code>, <code>.number</code>, <code>.trim</code>:</p>
+            <div id="app6" class="output">
+                <label>Normal (updates on input):</label>
+                <input v-model="normal" placeholder="Type here">
+                <p>Value: "{{ normal }}"</p>
+                
+                <label>Lazy (updates on blur):</label>
+                <input v-model.lazy="lazy" placeholder="Type and click away">
+                <p>Value: "{{ lazy }}"</p>
+                
+                <label>Number (converts to number):</label>
+                <input v-model.number="age" type="number" placeholder="Enter age">
+                <p>Value: {{ age }} (Type: {{ typeof age }})</p>
+                
+                <label>Trim (removes whitespace):</label>
+                <input v-model.trim="trimmed" placeholder="Type with spaces">
+                <p>Value: "{{ trimmed }}" (Length: {{ trimmed.length }})</p>
+            </div>
+            <pre><code>&lt;input v-model="normal"&gt;
+&lt;input v-model.lazy="lazy"&gt;
+&lt;input v-model.number="age" type="number"&gt;
+&lt;input v-model.trim="trimmed"&gt;</code></pre>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        // Example 1: Text Input
+        createApp({
+            data() {
+                return {
+                    name: ''
+                }
+            }
+        }).mount('#app1');
+
+        // Example 2: Textarea
+        createApp({
+            data() {
+                return {
+                    message: ''
+                }
+            },
+            computed: {
+                wordCount() {
+                    return this.message.trim() ? this.message.trim().split(/\s+/).length : 0;
+                }
+            }
+        }).mount('#app2');
+
+        // Example 3: Checkboxes
+        createApp({
+            data() {
+                return {
+                    agree: false,
+                    hobbies: []
+                }
+            }
+        }).mount('#app3');
+
+        // Example 4: Radio Buttons
+        createApp({
+            data() {
+                return {
+                    framework: 'Vue'
+                }
+            }
+        }).mount('#app4');
+
+        // Example 5: Select Dropdown
+        createApp({
+            data() {
+                return {
+                    country: '',
+                    skills: []
+                }
+            }
+        }).mount('#app5');
+
+        // Example 6: Modifiers
+        createApp({
+            data() {
+                return {
+                    normal: '',
+                    lazy: '',
+                    age: '',
+                    trimmed: ''
+                }
+            }
+        }).mount('#app6');
+    </script>
+</body>
+</html>

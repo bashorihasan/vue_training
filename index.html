@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Training - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #42b983 0%, #35495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            margin-bottom: 40px;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .example-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid #42b983;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h3 {
+            color: #35495e;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .example-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .example-card a {
+            display: inline-block;
+            background: #42b983;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .example-card a:hover {
+            background: #35495e;
+        }
+
+        .footer {
+            background: #35495e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Vue.js Training</h1>
+            <p>Learn Vue.js from Basics to Advanced Concepts</p>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <h2>Welcome to Vue.js Training!</h2>
+                <p>
+                    This training project provides comprehensive examples to help you master Vue.js.
+                    Each example is self-contained and demonstrates a specific concept with practical code.
+                    Click on any example below to explore and learn!
+                </p>
+            </div>
+
+            <h2>📚 Training Examples</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3>1. Getting Started</h3>
+                    <p>Learn the basics of Vue.js including data binding and interpolation.</p>
+                    <a href="examples/01-getting-started.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>2. Event Handling</h3>
+                    <p>Master event handling with v-on directive and method binding.</p>
+                    <a href="examples/02-event-handling.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>3. Conditional Rendering</h3>
+                    <p>Learn how to conditionally render elements with v-if, v-else, and v-show.</p>
+                    <a href="examples/03-conditional-rendering.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>4. List Rendering</h3>
+                    <p>Render lists dynamically with v-for directive and work with arrays.</p>
+                    <a href="examples/04-list-rendering.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>5. Two-Way Binding</h3>
+                    <p>Understand two-way data binding with v-model for forms and inputs.</p>
+                    <a href="examples/05-two-way-binding.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>6. Computed Properties</h3>
+                    <p>Learn about computed properties and how they differ from methods.</p>
+                    <a href="examples/06-computed-properties.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>7. Watchers</h3>
+                    <p>Understand watchers and how to react to data changes.</p>
+                    <a href="examples/07-watchers.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>8. Components Basics</h3>
+                    <p>Create reusable components and understand component structure.</p>
+                    <a href="examples/08-components-basics.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>9. Component Props</h3>
+                    <p>Pass data to child components using props.</p>
+                    <a href="examples/09-component-props.html">View Example →</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>10. Component Events</h3>
+                    <p>Emit events from child to parent components for communication.</p>
+                    <a href="examples/10-component-events.html">View Example →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Vue.js Training | Built with ❤️ and Vue.js</p>
+        </div>
+    </div>
+</body>
+</html>

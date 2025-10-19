@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08 - Components Basics</title>
+    <script src="../lib/vue/vue.global.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #42b983;
+            border-bottom: 3px solid #42b983;
+            padding-bottom: 10px;
+        }
+
+        .example-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #42b983;
+        }
+
+        .example-section h3 {
+            color: #35495e;
+            margin-top: 0;
+        }
+
+        .output {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #42b983;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #35495e;
+        }
+
+        button {
+            background: #42b983;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #35495e;
+        }
+
+        code {
+            background: #282c34;
+            color: #61dafb;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .alert-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #0c5460;
+            color: #0c5460;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #155724;
+            color: #155724;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #856404;
+            color: #856404;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #42b983;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .badge-primary {
+            background: #42b983;
+            color: white;
+        }
+
+        .badge-secondary {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        
+        <h1>08 - Components Basics</h1>
+        
+        <p>
+            Components are reusable Vue instances with a name. They accept the same options as 
+            the root Vue instance, such as data, computed, watch, methods, and lifecycle hooks.
+        </p>
+
+        <div class="example-section">
+            <h3>Example 1: Simple Component</h3>
+            <p>Create a basic reusable component:</p>
+            <div id="app1" class="output">
+                <button-counter></button-counter>
+                <button-counter></button-counter>
+                <button-counter></button-counter>
+                <p><em>Each component maintains its own state!</em></p>
+            </div>
+            <pre><code>app.component('button-counter', {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  template: `
+    &lt;button @click="count++"&gt;
+      Clicked {{ count }} times
+    &lt;/button&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 2: Component with Template</h3>
+            <p>Components with more complex templates:</p>
+            <div id="app2" class="output">
+                <alert-box type="info" title="Information">
+                    This is an informational alert box component.
+                </alert-box>
+                <alert-box type="success" title="Success!">
+                    Your action was completed successfully.
+                </alert-box>
+                <alert-box type="warning" title="Warning">
+                    Please review this important message.
+                </alert-box>
+            </div>
+            <pre><code>app.component('alert-box', {
+  props: ['type', 'title'],
+  template: `
+    &lt;div :class="'alert-box alert-' + type"&gt;
+      &lt;h4&gt;{{ title }}&lt;/h4&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 3: Component with Methods</h3>
+            <p>Components can have their own methods:</p>
+            <div id="app3" class="output">
+                <greeting-card></greeting-card>
+                <greeting-card></greeting-card>
+            </div>
+            <pre><code>app.component('greeting-card', {
+  data() {
+    return {
+      name: '',
+      greetings: []
+    }
+  },
+  methods: {
+    addGreeting() {
+      if (this.name.trim()) {
+        this.greetings.push(this.name);
+        this.name = '';
+      }
+    }
+  },
+  template: `
+    &lt;div class="card"&gt;
+      &lt;h4&gt;Greeting Card&lt;/h4&gt;
+      &lt;input v-model="name" @keyup.enter="addGreeting"&gt;
+      &lt;button @click="addGreeting"&gt;Add&lt;/button&gt;
+      &lt;p v-for="(greeting, index) in greetings" :key="index"&gt;
+        Hello, {{ greeting }}! 👋
+      &lt;/p&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 4: Component Lifecycle</h3>
+            <p>Components have lifecycle hooks:</p>
+            <div id="app4" class="output">
+                <button @click="showComponent = !showComponent">Toggle Component</button>
+                <lifecycle-demo v-if="showComponent"></lifecycle-demo>
+            </div>
+            <pre><code>app.component('lifecycle-demo', {
+  data() {
+    return {
+      message: 'Component is mounted!'
+    }
+  },
+  mounted() {
+    console.log('Component mounted!');
+  },
+  unmounted() {
+    console.log('Component unmounted!');
+  },
+  template: `
+    &lt;div class="card"&gt;
+      &lt;h4&gt;{{ message }}&lt;/h4&gt;
+      &lt;p&gt;Check the console for lifecycle logs&lt;/p&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+
+        <div class="example-section">
+            <h3>Example 5: Slot Content</h3>
+            <p>Use slots to pass content to components:</p>
+            <div id="app5" class="output">
+                <feature-card>
+                    <template v-slot:header>
+                        <h4>Vue.js Features</h4>
+                    </template>
+                    <template v-slot:default>
+                        <p>Reactive and composable components</p>
+                        <p>Simple and minimal core with incremental adoption</p>
+                    </template>
+                    <template v-slot:footer>
+                        <span class="badge badge-primary">Popular</span>
+                        <span class="badge badge-secondary">Modern</span>
+                    </template>
+                </feature-card>
+            </div>
+            <pre><code>app.component('feature-card', {
+  template: `
+    &lt;div class="card"&gt;
+      &lt;slot name="header"&gt;&lt;/slot&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+      &lt;slot name="footer"&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  `
+});</code></pre>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        // Example 1: Simple Component
+        const app1 = createApp({});
+        app1.component('button-counter', {
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            template: `
+                <button @click="count++">
+                    Clicked {{ count }} times
+                </button>
+            `
+        });
+        app1.mount('#app1');
+
+        // Example 2: Alert Box Component
+        const app2 = createApp({});
+        app2.component('alert-box', {
+            props: ['type', 'title'],
+            template: `
+                <div :class="'alert-box alert-' + type">
+                    <h4>{{ title }}</h4>
+                    <slot></slot>
+                </div>
+            `
+        });
+        app2.mount('#app2');
+
+        // Example 3: Greeting Card
+        const app3 = createApp({});
+        app3.component('greeting-card', {
+            data() {
+                return {
+                    name: '',
+                    greetings: []
+                }
+            },
+            methods: {
+                addGreeting() {
+                    if (this.name.trim()) {
+                        this.greetings.push(this.name);
+                        this.name = '';
+                    }
+                }
+            },
+            template: `
+                <div class="card">
+                    <h4>Greeting Card</h4>
+                    <input v-model="name" @keyup.enter="addGreeting" placeholder="Enter name">
+                    <button @click="addGreeting">Add</button>
+                    <p v-for="(greeting, index) in greetings" :key="index">
+                        Hello, {{ greeting }}! 👋
+                    </p>
+                </div>
+            `
+        });
+        app3.mount('#app3');
+
+        // Example 4: Lifecycle Demo
+        const app4 = createApp({
+            data() {
+                return {
+                    showComponent: true
+                }
+            }
+        });
+        app4.component('lifecycle-demo', {
+            data() {
+                return {
+                    message: 'Component is mounted!'
+                }
+            },
+            mounted() {
+                console.log('Component mounted!');
+            },
+            unmounted() {
+                console.log('Component unmounted!');
+            },
+            template: `
+                <div class="card">
+                    <h4>{{ message }}</h4>
+                    <p>Check the console for lifecycle logs</p>
+                </div>
+            `
+        });
+        app4.mount('#app4');
+
+        // Example 5: Slots
+        const app5 = createApp({});
+        app5.component('feature-card', {
+            template: `
+                <div class="card">
+                    <slot name="header"></slot>
+                    <slot></slot>
+                    <slot name="footer"></slot>
+                </div>
+            `
+        });
+        app5.mount('#app5');
+    </script>
+</body>
+</html>

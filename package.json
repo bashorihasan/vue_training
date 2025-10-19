@@ -1,0 +1,24 @@
+{
+  "name": "vue-training",
+  "version": "1.0.0",
+  "description": "A comprehensive Vue.js training project with examples",
+  "main": "index.html",
+  "scripts": {
+    "serve": "npx http-server -p 8080 -o"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "training",
+    "tutorial",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "vue": "^3.5.22"
+  }
+}
